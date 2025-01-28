@@ -1,5 +1,14 @@
+#Base Image
 FROM python:3.9.1
 
-RUN pip install pandas
+#Set working directory
+WORKDIR /app
 
-ENTRYPOINT [ "bash" ]
+#Copy project files into the container
+COPY . /app
+
+#Install dependencies
+RUN pip install --no-cache-dir -r requirement.txt
+
+#Default command
+CMD ["python", "scripts/extract.py"]
