@@ -1,14 +1,9 @@
 #Base Image
 FROM python:3.9.1
+RUN apt-get update && apt-get install -y wget
+RUN pip install pandas sqlalchemy psycopg2
 
-#Set working directory
 WORKDIR /app
+COPY data_ingestion.py ingest_data.py 
 
-#Copy project files into the container
-COPY . /app
-
-#Install dependencies
-RUN pip install --no-cache-dir -r requirement.txt
-
-#Default command
-CMD ["python", "scripts/extract.py"]
+ENTRYPOINT [ "python", "data_ingestion.py" ]
