@@ -4,6 +4,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from time import time
 import argparse
+import requests
 
 # Argument parser
 parser = argparse.ArgumentParser(description='Ingest CSV data to Postgres')
@@ -27,7 +28,15 @@ def main(params):
     table_name = params.table_name
     url = params.url
     
-    csv_name='yellow_tripdata_2021-01.csv.gz'
+    #Extract the file name from the URL
+    csv_name = url.split('/')[-1]
+
+    # Download the CSV file
+    print(f"Downloading {csv_name} from {url}... ")
+    response = requests.get(url)
+    with open(csv_name, 'wb') as f:
+        f.write(response.content)
+    print("Download complete: {csv_name}")
     
 
     # Create a connection to the PostgreSQL database
@@ -39,9 +48,11 @@ def main(params):
     # Extract the first chunk
     df = next(df_iter)
 
-    # Convert date columns to datetime format
-    df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-    df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+    # Convert date columns to datetime format (if applicable)
+    if 'tpep_pickup_datetime' in df.columns:
+        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+    if 'tpep_dropoff_datetime' in df.columns:
+        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
 
     # Create the table schema in the database (if not exists)
     df.head(0).to_sql(name=table_name, con=engine, if_exists='replace')
