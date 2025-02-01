@@ -7,7 +7,7 @@ Dockerfile~
 # Ignore build files and temporary files
 *.tar
 *.zip
-*.gz
+
 *.bak
 *.tmp
 *.swp
