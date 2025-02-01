@@ -1,0 +1,52 @@
+# --- Terraform State Files ---
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# --- GCP Credentials & Sensitive Keys ---
+keys/my.creds.json
+*.pem
+*.pfx
+*.key
+*.crt
+*.der
+*.cer
+
+# --- Terraform Crash Logs ---
+crash.log
+*.log
+
+# --- Ignore Terraform Plan Output ---
+terraform.plan
+*.tfvars
+*.tfvars.json
+
+# --- Ignore Temporary & Backup Files ---
+*.bak
+*.swp
+*.swo
+*.tmp
+.DS_Store
+Thumbs.db
+
+# --- Ignore VS Code Workspace Settings ---
+.vscode/
+.history/
+*.code-workspace
+
+# --- Ignore OS-Specific Files ---
+# macOS
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*.swp
+
+# Ignore Google Cloud credentials (VERY IMPORTANT)
+keys/my.creds.json
