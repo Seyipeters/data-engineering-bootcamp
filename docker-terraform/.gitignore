@@ -1,0 +1,45 @@
+# Ignore Docker-related files
+*.log
+*.pid
+docker-compose.override.yml
+Dockerfile~
+
+# Ignore build files and temporary files
+*.tar
+*.zip
+*.gz
+*.bak
+*.tmp
+*.swp
+
+# Ignore environment and credentials files
+.env
+.env.*
+
+# Ignore MacOS and Windows system files
+.DS_Store
+Thumbs.db
+
+# Ignore Python virtual environments (if applicable)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+*.egg-info/
+
+# Ignore IDE and Editor settings
+.vscode/
+.idea/
+*.iml
+
+# Ignore Node.js (if applicable)
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+
+# Ignore test and coverage files
+coverage/
+*.test
+*.coverage

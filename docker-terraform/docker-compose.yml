@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: local-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: seyi
+      POSTGRES_PASSWORD: seyi
+      POSTGRES_DB: ny_taxi
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - pg_network
+    restart: always 
+
+  pgadmin:  
+    image: dpage/pgadmin4
+    container_name: pgadmin_ui
+    environment:
+      PGADMIN_DEFAULT_EMAIL: seyi@admin.com
+      PGADMIN_DEFAULT_PASSWORD: seyi
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    networks:
+      - pg_network
+    
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  pg_network:
+    driver: bridge
+
+
